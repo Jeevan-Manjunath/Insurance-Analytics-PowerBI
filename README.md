@@ -1,28 +1,52 @@
-# Enterprise Insurance Performance & Data Pipeline Solution
+# Insurance Data Analytics Pipeline
 
-## Project Architecture & Data Workflow
-This project demonstrates an end-to-end data processing and analytics pipeline using an **ELT (Extract, Load, Transform)** workflow designed to process large-scale transactional insurance records.
+A Power BI dashboard analyzing insurance policy and claims data — connecting to SQL Server, performing data-quality checks in Power Query, and reporting key metrics for a sample insurance company ("Prism Insurance Pvt. Ltd.").
 
-1. **Extraction & Staging:** Ingested raw insurance transaction matrices from structured Excel databases into an enterprise **SQL Server** environment under the database `Insurancedb`.
-2. **Database Verification:** Configured database environments and handled schema overrides during initial staging to correct mismatched column data types. Executed the verification script `Insurancedb.sql` to audit ingestion results and guarantee structural data hygiene.
-3. **Power Query Modeling:** Established a direct connection from Power BI to the SQL Server database. Built robust conditional column logic within the **Power Query Editor** to segment demographics and categorize high-impact variables into dynamic business dimensions.
-4. **Data Visualization:** Developed a clean, high-performance visual layout (`Insurance Data Dashboard.pbix`) using customized DAX expressions to compute critical business KPIs, tracking policy growth, claim loss distributions, and operational risk metrics.
+## Project Overview
 
-## Dashboard Preview
-![Prism Insurance Performance Analytics](Insurance Dashboard.png)
+This project explores insurance policy and claims data to surface patterns across policy types, claim outcomes, and customer demographics. Power BI connects directly to a SQL Server database (`Insurancedb`), where the data is reviewed for quality, transformed, and visualized on an interactive dashboard.
 
-## Data Modeling & Architecture
-* **Data Structure:** Utilized a **de-normalized, flat-file database model** within SQL Server to optimize data retrieval speeds by eliminating complex runtime table JOIN operations. 
-* **Engine Optimization:** The flattened database layout maximizes Power BI's internal VertiPaq columnar engine compression efficiency, ensuring instantaneous cross-filtering and metric responsiveness across the entire layout.
-* **Feature Engineering:** Leveraged Power Query to dynamically inject conditional evaluation logic directly into the flat-file schema without modifying or corrupting the underlying database source.
+## Dashboard Highlights
 
-## Core Technical Stack
-* **Database Engine:** SQL Server (Data Ingestion, Environment Configuration, Structural Validation Checking via `Insurancedb.sql`)
-* **Data Transformation:** Power Query M-Engine (Conditional Column Mapping, Data Sanitization)
-* **Business Intelligence Engine:** Power BI Desktop (Data Modeling, Advanced DAX Scripting via `Insurance Data Dashboard.pbix`)
-* **Workflow Acceleration:** Generative AI (Claude) leveraged to design optimized database schema architectures and cross-functional DAX KPI mappings.
+- **KPI Summary Cards:** Headline metrics for Total Premium Amount, Coverage Amount, and Claim Amount.
+- **Premium by Policy Type:** Bar chart comparing premium totals across Travel, Health, Auto, Life, and Home policies.
+- **Policy Status Breakdown:** Donut chart showing the split between Active and Inactive policies.
+- **Claims by Status:** Chart showing claim volume across Rejected, Settled, and Pending outcomes.
+- **Claim Amount by Age Group:** Line chart comparing claim totals across Adult, Elder, and Young Adult customers.
+- **Demographics:** Gender split cards (Male/Female policyholders).
+- **Detailed Matrix Table:** Policy Type broken down by Pending, Rejected, and Settled claim amounts, with row and column totals.
+- **Interactive Filters:** Slicers for Policy Number, Claim Number, and Customer ID.
 
-## Key Technical Implementations
-* Formatted complex matrix visuals to handle dynamic scale metrics, shortening raw multi-digit numbers into highly readable millions abbreviated values ($M).
-* Architected automated data labels and conditional callout parameters to track claim frequency and loss ratios cleanly.
-* Fixed text overlapping and interface padding constraints to ensure a 100% executive-ready dashboard interface.
+## What This Project Covers
+
+- **SQL Server Connectivity:** Connected Power BI Desktop to a SQL Server database as a live data source.
+- **Data Quality Checks:** Used Power Query to review row counts and identify null or missing values across policy records before building any reports.
+- **Data Transformation:** Added two calculated columns in Power Query — Active/Inactive policy status and Age Group buckets — used directly in the dashboard's cards, charts, and matrix table.
+- **Reporting:** KPI cards and the matrix table use the underlying numeric fields (Premium, Coverage, Claim Amount) directly, relying on Power BI's built-in sum aggregation — no custom DAX measures were needed for this dataset.
+- **Dashboard Design:** Combined cards, charts, a donut visual, and a matrix table into a single, filterable executive view.
+
+## Tech Stack
+
+| Layer | Tool |
+|---|---|
+| Database | SQL Server |
+| Data Connection & Cleaning | Power BI (Power Query / M) |
+| Reporting | Power BI (cards, charts, matrix table) |
+
+## Files in This Repo
+
+| File | Description |
+|---|---|
+| `Insurancedb.sql` | SQL script used to set up the `Insurancedb` database |
+| `Insurance Data Dashboard.pbix` | Power BI file with the data model and dashboard |
+| `Insurance Dashboard.png` | Screenshot of the final dashboard |
+
+## What I Learned
+
+This project was hands-on practice connecting Power BI directly to a SQL Server database, using Power Query as a data-quality checkpoint before reporting, and combining multiple visual types (cards, bar chart, donut chart, line chart, and matrix table) into one filterable dashboard.
+
+## Possible Improvements
+
+- Automate the row-count and null checks instead of reviewing manually
+- Add DAX time-intelligence measures (e.g., claims trend by policy year)
+- Add data validation directly in SQL Server before each Power BI refresh
