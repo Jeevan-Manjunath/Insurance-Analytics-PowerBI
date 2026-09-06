@@ -1,21 +1,14 @@
 -- =================================================================================
--- PROJECT: Enterprise Insurance Data Analytics Pipeline
--- PURPOSE: Database Migration, Schema Verification & Data Ingestion Audit
--- OBJECTIVE: Validate successful ELT extraction from Excel staging into SQL Server
--- STRUCTURE: Optimized De-normalized Flat-File Database Model
+-- PROJECT: Insurance Data Analytics Pipeline
+-- PURPOSE: Set the active database and preview the raw insurance data
+--          before connecting Power BI Desktop to it as a live data source.
 -- =================================================================================
 
--- Step 1: Ensure the server is targeting the correct database environment
+-- Step 1: Point the session at the Insurancedb database.
 USE Insurancedb;
 
--- Step 2: Execute schema validation and row-count synchronization check.
--- Note: Column anomalies and mismatched data types were explicitly overridden 
--- and corrected during the initial database configuration wizard.
+-- Step 2: Preview the raw insurance records loaded into SQL Server.
+-- This table is what Power BI connects to directly. Data quality checks
+-- (row counts, null values) are performed afterward in Power Query,
+-- before building the dashboard.
 SELECT * FROM Insurance_Raw_Data;
-
--- =================================================================================
--- VERIFICATION VERDICT: Data integrity verified successfully. 
--- The flat-file architecture eliminates runtime JOIN latency and optimizes 
--- columnar compression when connected to the Power BI VertiPaq engine.
--- Proceeding to Power Query data transformation layer.
--- =================================================================================
